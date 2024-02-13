@@ -6,7 +6,6 @@
     <div id="wrapper" v-if="match_alive">
 
       <div id="court" :style="{ backgroundColor: courtBackgroundColor }">
-        <div id="energy">{{ this.energy }}</div>
         <div id="barr" :class="{ 'ball_home': player_active === 1, 'ball_away': player_active === 2 }">
           <div id="ball"></div>
         </div>
