@@ -28,7 +28,7 @@
 
       <div id="court" :style="{ backgroundColor: courtBackgroundColor }">
         <!-- problema -->
-        <!-- <div id="energy">{{ this.energy }}</div> -->
+        <div id="energy">{{ energy }}</div>
         <!-- /problema -->
 
         <div id="barr" :class="{ 'ball_home': player_active === 1, 'ball_away': player_active === 2 }">
