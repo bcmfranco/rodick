@@ -1,19 +1,30 @@
 <template>
   <div id="container">
-    <h1 id="logo">rodick</h1>
+    <h1 id="logo">slice</h1>
+
 
     <div id="wrapper" v-if="match_alive">
 
-      <div id="joystick">
-        <div id="controlers">
-      </div>
 
-      <div id="buttoner">
+      <div id="joystick">
+
+        <div id="controlers">
+          <button class="racket" id="racket_p1" @click="shot(1)">P1</button>
+
+          <div id="dice">
+            <div>{{ dice }}</div>
+          </div>
+
+          <button class="racket" id="racket_p2" @click="shot(2)">P2</button>
+        </div>
       </div>
 
     </div>
 
 
+    <div id="buttoner">
+      <div id="restart_btn" @click="restartMatch">Restart Match</div>
+    </div>
   </div>
 </template>
 
