@@ -2,10 +2,35 @@
   <div id="container">
     <h1 id="logo">slice</h1>
 
+    <div id="pointer">
+      
+      <div class="player_score">
+        <div class="player_name" id="player_1_name">Player 1</div>
+        <ul>
+          <li>{{ puntos.jugador1[1] }}</li>
+          <li>{{ puntos.jugador1[2] }}</li>
+          <li>{{ puntos.jugador1[3] }}</li>
+        </ul>
+      </div>
+      <div class="player_score">
+        <div class="player_name" id="player_2_name">Player 2</div>
+        <ul>
+          <li>{{ puntos.jugador2[1] }}</li>
+          <li>{{ puntos.jugador2[2] }}</li>
+          <li>{{ puntos.jugador2[3] }}</li>
+        </ul>
+      </div>
+
+    </div>
+
 
     <div id="wrapper" v-if="match_alive">
 
       <div id="court" :style="{ backgroundColor: courtBackgroundColor }">
+        <!-- problema -->
+        <div id="energy">{{ this.energy }}</div>
+        <!-- /problema -->
+
         <div id="barr" :class="{ 'ball_home': player_active === 1, 'ball_away': player_active === 2 }">
           <div id="ball"></div>
         </div>
