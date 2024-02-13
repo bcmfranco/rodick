@@ -4,13 +4,6 @@
 
     <div id="wrapper" v-if="match_alive">
 
-      <div id="court" :style="{ backgroundColor: courtBackgroundColor }">
-        <div id="energy">{{ this.energy }}</div>
-        <div id="barr" :class="{ 'ball_home': player_active === 1, 'ball_away': player_active === 2 }">
-          <div id="ball"></div>
-        </div>
-      </div>
-
       <div id="joystick">
         <div id="controlers">
           <button class="racket" id="racket_p1" @click="shot(1)">P1</button>
@@ -22,8 +15,6 @@
           <button class="racket" id="racket_p2" @click="shot(2)">P2</button>
         </div>
       </div>
-
-
 
       <div id="buttoner">
         <div id="restart_btn" @click="restartMatch">Restart Match</div>
