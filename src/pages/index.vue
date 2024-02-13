@@ -1,9 +1,8 @@
 <template>
   <div id="container">
-    <h1 id="logo">slice</h1>
+    <h1 id="logo">rodick</h1>
 
     <div id="pointer">
-      
       <div class="player_score">
         <div class="player_name" id="player_1_name">Player 1</div>
         <ul>
@@ -20,17 +19,11 @@
           <li>{{ puntos.jugador2[3] }}</li>
         </ul>
       </div>
-
     </div>
 
-
     <div id="wrapper" v-if="match_alive">
-
       <div id="court" :style="{ backgroundColor: courtBackgroundColor }">
-        <!-- problema -->
         <div id="energy">{{ energy }}</div>
-        <!-- /problema -->
-
         <div id="barr" :class="{ 'ball_home': player_active === 1, 'ball_away': player_active === 2 }">
           <div id="ball"></div>
         </div>
@@ -45,9 +38,7 @@
           <button class="racket" id="racket_p2" @click="shot(2)">P2</button>
         </div>
       </div>
-
     </div>
-
 
     <div id="buttoner">
       <div id="restart_btn" @click="restartMatch">Restart Match</div>
@@ -126,9 +117,6 @@ export default {
           }
         }
       }
-
-      // console.log("marcador", this.points.player_1, " - ", this.points.player_2);
-      // console.log("nuevo marcador", this.puntos.jugador1[1], " - ", this.puntos.jugador2[1]);
     },
     shot(player) { // Hace jugar el punto con show_power y energy
       var shot_power = this.rollDice();
@@ -160,9 +148,7 @@ export default {
         this.getPoint(anti_player);
       }
     },
-    restartMatch() {
-      // Reinicia el puntaje y el estado del juego
-
+    restartMatch() { // Reinicia el puntaje y el estado del juego
       this.puntos = {
         jugador1: { 1: 0, 2: 0, 3: 0 },
         jugador2: { 1: 0, 2: 0, 3: 0 },
@@ -175,16 +161,12 @@ export default {
         this.courtBackgroundColor = '#ffffff33'; // Restaurar color de fondo después de 1 segundo
       }, 1000);
       this.match_alive = true;
-      
-      // console.log("marcador", this.points.player_1, " - ", this.points.player_2);
-      // console.log("nuevo marcador", this.puntos.jugador1[1], " - ", this.puntos.jugador2[1]);
     }
   }
 }
 </script>
 
 <style scoped>
-/* Aquí van tus estilos CSS */
 </style>
 
 <style scoped>
@@ -402,13 +384,9 @@ export default {
 
 
   @media only screen and (max-width: 600px) {
-    /* Aquí van tus estilos específicos para dispositivos móviles */
     #container {
       justify-content: start;
     }
 
   }
-
-
-
 </style>
