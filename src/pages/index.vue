@@ -3,22 +3,132 @@
     <h1>
       Virgin Vue
     </h1>
-
-    <p class="message">{{ message }}</p>
-    <button @click="changeMessage">Cambiar Mensaje</button>
   </div>
 </template>
 
 <script>
+
 export default {
   data() {
     return {
-      message: "Este es un mensaje dentro del componente."
+      match_alive: true,
+      energy: 0,
+      player_active: 1,
+      fading_msg: null,
+      fadding_2: null,
+      showElement: true,
+      diceRolling: false,
+      dice: 1,
+      courtBackgroundColor: '#ffffff33', // Color de fondo inicial del #court
+      puntos: {
+        jugador1: { 1: 0, 2: 0, 3: 0 },
+        jugador2: { 1: 0, 2: 0, 3: 0 },
+      },
+      current_set: 1,
     };
   },
   methods: {
-    changeMessage() {
-      this.message = "Nuevo mensaje cambiado por el botón.";
+    rollDice() { // Rola el dado
+      this.dice = Math.floor(Math.random() * 6) + 1;
+      console.log("dice", this.dice);
+
+      return this.dice;
+    },
+    getSet(){ // Da por ganador el set y cambia al siguiente
+      if(this.current_set < 3){
+        this.current_set++;
+      } else {
+        console.log("Partido terminado");
+        this.match_alive = false;
+      }
+    },
+    getPoint(player){ // Da por ganador el punto y el set si es necesario
+
+      console.log("punto para", player);
+
+      if(player === 1){
+        this.puntos.jugador1[this.current_set]++;
+
+        console.log(this.puntos.jugador1[this.current_set]);
+
+
+        if(this.puntos.jugador1[this.current_set] > 5){
+          if(this.puntos.jugador1[this.current_set] > 6){
+            this.getSet();
+          } else {
+            if(this.puntos.jugador2[this.current_set] < 5){
+              this.getSet();
+            }
+          }
+        }
+
+      } else {
+        this.puntos.jugador2[this.current_set]++;
+
+        console.log(this.puntos.jugador2[this.current_set]);
+
+        if(this.puntos.jugador2[this.current_set] > 5){
+          if(this.puntos.jugador2[this.current_set] > 6){
+            this.getSet();
+          } else {
+            if(this.puntos.jugador1[this.current_set] < 5){
+              this.getSet();
+            }
+          }
+        }
+      }
+
+      // console.log("marcador", this.points.player_1, " - ", this.points.player_2);
+      // console.log("nuevo marcador", this.puntos.jugador1[1], " - ", this.puntos.jugador2[1]);
+    },
+    shot(player) { // Hace jugar el punto con show_power y energy
+      var shot_power = this.rollDice();
+
+
+      if(player === 1){
+        var anti_player = 2;
+        this.player_active = 2;
+      } else {
+        var anti_player = 1;
+        this.player_active = 1;
+      }
+
+      console.log("energy: ",this.energy, "power:", shot_power);
+
+      if(shot_power > this.energy){
+        // console.log("hi");
+        this.energy = shot_power - this.energy;
+
+        console.log("new energy: ",this.energy);
+      } else {
+        // console.log("hao");
+        this.energy = 0;
+        this.courtBackgroundColor = '#ff6666'; // Cambiar color de fondo en caso de 'Fail'
+        setTimeout(() => {
+          this.courtBackgroundColor = '#ffffff33'; // Restaurar color de fondo después de 1 segundo
+        }, 1000);
+
+        this.getPoint(anti_player);
+      }
+    },
+    restartMatch() {
+      // Reinicia el puntaje y el estado del juego
+
+      this.puntos = {
+        jugador1: { 1: 0, 2: 0, 3: 0 },
+        jugador2: { 1: 0, 2: 0, 3: 0 },
+      };
+
+      this.energy = 0;
+      this.player_active = 1;
+      this.courtBackgroundColor = '#ff6666'; // Cambiar color de fondo en caso de 'Fail'
+      setTimeout(() => {
+        this.courtBackgroundColor = '#ffffff33'; // Restaurar color de fondo después de 1 segundo
+      }, 1000);
+      this.match_alive = true;
+      
+      // console.log("marcador", this.points.player_1, " - ", this.points.player_2);
+      // console.log("nuevo marcador", this.puntos.jugador1[1], " - ", this.puntos.jugador2[1]);
     }
   }
 }
